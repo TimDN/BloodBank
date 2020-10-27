@@ -1,0 +1,9 @@
+# McChecker artifacts
+**/_output
+**/generated
+# Dotnet build artifacts
+**/obj
+**/bin
+
+# VS Code
+.vs/
