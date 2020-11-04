@@ -69,7 +69,7 @@ namespace Test
 
         private static void FillHealthDeclaration()
         {
-            var donor = new Donor(0, false, BloodType.ABn);
+            var donor = new Donor(Guid.NewGuid(), false, BloodType.ABn);
             var bloodDonation = bloodBank.StartBloodDonation(donor);
             var questionaire = AnswerQuestionaire(donor);
             var healthDeclaration = new HealthDeclaration(questionaire);

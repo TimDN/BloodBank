@@ -8,7 +8,7 @@ namespace BloodCenter.Persons
     {
         private Block _block;
 
-        public Donor(int id, bool sexIsMale, BloodType bloodType)
+        public Donor(Guid id, bool sexIsMale, BloodType bloodType)
             : base(id, sexIsMale, bloodType)
         {
         }

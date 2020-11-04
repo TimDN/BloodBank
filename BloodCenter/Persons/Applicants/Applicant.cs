@@ -5,7 +5,7 @@ namespace BloodCenter.Persons
 {
     public class Applicant : Person
     {
-        public Applicant(int id, bool sexIsMale, BloodType bloodType)
+        public Applicant(Guid id, bool sexIsMale, BloodType bloodType)
             : base(id, sexIsMale, bloodType)
         {
         }
