@@ -1,6 +1,7 @@
 ﻿using BloodCenter.Blood;
 using BloodCenter.Employees;
 using BloodCenter.Persons;
+using BloodCenter.Persons.Donors;
 using System;
 
 namespace BloodCenter.Donation

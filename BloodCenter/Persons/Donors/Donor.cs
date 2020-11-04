@@ -2,7 +2,7 @@
 using BloodCenter.Donation;
 using System;
 
-namespace BloodCenter.Persons
+namespace BloodCenter.Persons.Donors
 {
     public class Donor : Person
     {

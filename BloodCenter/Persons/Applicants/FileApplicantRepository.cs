@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using Newtonsoft.Json;
 
 namespace BloodCenter.Persons.Applicants

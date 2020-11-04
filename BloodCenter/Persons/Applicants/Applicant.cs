@@ -1,7 +1,7 @@
 ﻿using BloodCenter.Blood;
 using System;
 
-namespace BloodCenter.Persons
+namespace BloodCenter.Persons.Applicants
 {
     public class Applicant : Person
     {
