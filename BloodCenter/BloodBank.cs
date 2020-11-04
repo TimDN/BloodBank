@@ -9,24 +9,29 @@ namespace BloodCenter
 {
     public class BloodBank
     {
-        public List<BloodDonationBuilder> ActiveDonations { get; } = new List<BloodDonationBuilder>();
+        public List<BloodDonation> ActiveDonations { get; } = new List<BloodDonation>();
 
-        public BloodDonationBuilder StartBloodDonation(Donor donor)
+        public BloodDonation StartBloodDonation(Donor donor)
         {
             if (donor.IsBlocked())
             {
                 throw new ArgumentException();
             }
-            var bloodDonation = new BloodDonationBuilder(donor);
+            var bloodDonation = new BloodDonation(0, donor);
             ActiveDonations.Add(bloodDonation);
             return bloodDonation;
         }
 
-        public BloodDonationBuilder CheckoutBloodDonation(Nurse nurse, Donor donor)
+        public void AbortDonation(BloodDonation bloodDonation)
+        {
+            ActiveDonations.Remove(bloodDonation);
+            bloodDonation.EndDonation();
+        }
+
+        public BloodDonation CheckoutBloodDonation(Donor donor)
         {
             var bloodDonation = ActiveDonations.Single(e => e.Donor == donor);
             ActiveDonations.Remove(bloodDonation);
-            bloodDonation.AddNurse(nurse);
             return bloodDonation;
         }
 
