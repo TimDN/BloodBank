@@ -2,10 +2,9 @@
 using BloodCenter.Blood;
 using BloodCenter.Donation;
 using BloodCenter.Employees;
-using BloodCenter.Persons;
+using BloodCenter.Persons.Donors;
 using BloodCenter.Questions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Test
@@ -55,7 +54,7 @@ namespace Test
                 Console.WriteLine(question.Description);
             }
             var answer = bool.Parse(Console.ReadLine());
-            question.Answer = answer;
+            question.AnswerQuestion(answer);
         }
 
         private static void FillInMedicine(HealthDeclaration healthDeclaration)
@@ -97,8 +96,7 @@ namespace Test
 
         private static void Main(string[] args)
         {
-            FillHealthDeclaration();
-            DrawBlood();
+
         }
     }
 }
