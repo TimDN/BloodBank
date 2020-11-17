@@ -83,17 +83,6 @@ namespace Test
 
         }
 
-        private static void DrawBlood()
-        {
-            var nurse = new Nurse();
-            var donors = bloodBank.ActiveDonors();
-            var donor = donors.First();
-            var bloodDonation = bloodBank.CheckoutBloodDonation(donor);
-            bloodDonation.HealthDeclaration.Approve(nurse);
-            bloodDonation.Block(nurse, "Not enough weight", 50);
-            bloodDonation.EndDonation();
-        }
-
         private static void Main(string[] args)
         {
 
