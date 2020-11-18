@@ -6,11 +6,11 @@ namespace BloodCenter.Questions
     public class Question
     {
         private readonly bool _acceptableAnswer;
-        private bool _answer;
 
         public Question(string query, bool acceptableAnswer, int blockTime, string description = "",
             AudienceForQuestion audienceForQuestion = AudienceForQuestion.Both, Question innerQuestion = null)
         {
+            if (string.IsNullOrWhiteSpace(query)) throw new ArgumentException(nameof(query));
             Query = query;
             _acceptableAnswer = acceptableAnswer;
             BlockTimeInDays = blockTime;
@@ -24,16 +24,16 @@ namespace BloodCenter.Questions
         public string Description { get; }
         public AudienceForQuestion AudienceForQuestion { get; }
         public string Query { get; }
+        public bool Answer { get; private set; }
 
         public bool QuestionAnsweredCorrectly()
         {
-            return _answer == _acceptableAnswer;
+            return Answer == _acceptableAnswer;
         }
 
         public void AnswerQuestion(bool answer)
         {
-            _answer = answer;
+            Answer = answer;
         }
-
     }
 }
