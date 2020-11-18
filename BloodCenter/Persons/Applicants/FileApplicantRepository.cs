@@ -1,38 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
+using BloodCenter.Repository;
 
 namespace BloodCenter.Persons.Applicants
 {
-    public class FileApplicantRepository : IApplicantRepository
+    public class FileApplicantRepository : FileRepository<Applicant>, IApplicantRepository
     {
-        private readonly string _appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        private readonly string _applicationDirectory = "BloodBank";
-        private  readonly string _fileName = "Applicants.json";
-        private readonly string _path;
-        private readonly List<Applicant> _applicants = new List<Applicant>();
+        private const string _applicationDirectory = "BloodBank";
+        private const string _fileName = "Applicants.json";
+        private readonly List<Applicant> _applicants;
 
-        public FileApplicantRepository()
+        public FileApplicantRepository() : base (_applicationDirectory, _fileName)
         {
-            var directory = Path.Combine(_appData, _applicationDirectory);
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-            var path = Path.Combine(directory, _fileName);
-            if (!File.Exists(path))
-            {
-                using (File.Create(path)){ }
-            }
-            _path = path;
-            var content = File.ReadAllText(path);
-            var applicants = JsonConvert.DeserializeObject<List<Applicant>>(content);
-            if(!(applicants is null))
-            {
-                _applicants = applicants;
-            }
+            _applicants = LoadObjects();
         }
 
         public void AddApplicant(Applicant applicant)
@@ -72,8 +53,7 @@ namespace BloodCenter.Persons.Applicants
 
         public void Save()
         {
-            var content = JsonConvert.SerializeObject(_applicants);
-            File.WriteAllText(_path, content);
+            SaveObjects(_applicants);
         }
     }
 }

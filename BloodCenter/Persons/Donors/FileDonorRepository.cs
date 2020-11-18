@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BloodCenter.Repository;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,34 +7,15 @@ using System.Text;
 
 namespace BloodCenter.Persons.Donors
 {
-    public class FileDonorRepository : IDonorRepository
+    public class FileDonorRepository : FileRepository<Donor>, IDonorRepository
     {
-
-        private readonly string _appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        private readonly string _applicationDirectory = "BloodBank";
-        private readonly string _fileName = "Donors.json";
-        private readonly string _path;
+        private const string _applicationDirectory = "BloodBank";
+        private const string _fileName = "Donors.json";
         private readonly List<Donor> _donors = new List<Donor>();
 
-        public FileDonorRepository()
+        public FileDonorRepository() : base(_applicationDirectory, _fileName)
         {
-            var directory = Path.Combine(_appData, _applicationDirectory);
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-            var path = Path.Combine(directory, _fileName);
-            if (!File.Exists(path))
-            {
-                using (File.Create(path)) { }
-            }
-            _path = path;
-            var content = File.ReadAllText(path);
-            var donors = JsonConvert.DeserializeObject<List<Donor>>(content);
-            if (!(donors is null))
-            {
-                _donors = donors;
-            }
+            _donors = LoadObjects();
         }
 
         public void AddDonor(Donor donor)
@@ -63,8 +45,7 @@ namespace BloodCenter.Persons.Donors
 
         public void Save()
         {
-            var content = JsonConvert.SerializeObject(_donors);
-            File.WriteAllText(_path, content);
+            SaveObjects(_donors);
         }
     }
 }
